@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const homePage = sequelize.define('homePage', {
+  const homepage = sequelize.define('homepage', {
     title: DataTypes.STRING,
     description: DataTypes.TEXT,
     backgroundColor: { 
@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   homepage.associate = function(models) {
     homepage.belongsTo(models.user)
+    homepage.hasMany(models.story)
   };
-  return homePage;
+  return homepage;
 };
