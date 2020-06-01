@@ -13,6 +13,15 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          title: "homepageEpic",
+          description: "bladieblaplusblaat",
+          backgroundColor: "#126666",
+          color: "#4599989",
+          userId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
         
       ],
       {}
