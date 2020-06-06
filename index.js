@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const Homepages = require("./models").homepage
+
 
 /**
  * Middlewares
@@ -135,21 +135,9 @@ app.post("/echo", (req, res) => {
 
 
 
-app.get('/homepages', async(req, res)=>{
-  
-    const pages = await Homepages.findAll()
-    res.send(pages.map(p=>p))
-  }
-)
 
-app.get('/homepages/:id', async(req, res)=>{
-  const id = req.params.id;
-  
 
-  const detailPage = await Homepages.findByPk(id)
-  res.send(detailPage)
-}
-)
+
 
 // POST endpoint which requires a token for testing purposes, can be removed
 app.post("/authorized_post_request", authMiddleWare, (req, res) => {
@@ -170,6 +158,9 @@ app.post("/authorized_post_request", authMiddleWare, (req, res) => {
 
 const authRouter = require("./routers/auth");
 app.use("/", authRouter);
+
+const homePagesRouter = require("./routers/homepages");
+app.use("/", homePagesRouter);
 
 // Listen for connections on specified port (default is port 4000)
 const { PORT } = require("./config/constants");
