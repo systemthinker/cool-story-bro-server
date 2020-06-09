@@ -2,6 +2,7 @@ const { Router } = require("express");
 const Homepages = require("../models").homepage
 const Story = require("../models").story
 const router = new Router();
+const authMiddleware = require("../auth/middleware");
 
 
 
@@ -50,5 +51,35 @@ router.get('/homepages', async(req, res)=>{
 
 }
 ) 
+
+
+router.post('/myhomepage/', async(req, res, next)=>{
+    const id = req.body.id;
+    console.log('id is',id)
+    
+    if(!id){
+        res.status(400).send('no homepage found')
+    }
+    
+    
+  
+    const detailPage = await Homepages.findByPk(id, {
+       include: [Story],
+       
+       order: [[Story,"createdAt", "DESC"]]
+       
+       
+    })
+
+   
+    
+    if(!detailPage) {
+        console.log('finding err')
+        res.status(400).send('no homepage found')
+    }
+    res.status(200).send(detailPage)
+    
+  }
+  )
 
 module.exports = router;
