@@ -82,4 +82,39 @@ router.post('/myhomepage/', async(req, res, next)=>{
   }
   )
 
+router.patch('/myhomepage/', async(req, res, next)=>{
+    const id = req.body.id;
+    console.log('id patch is',id)
+    console.log('body is ', req.body)
+    
+    if(!id){
+        res.status(400).send('please login first to edit your page')
+    }
+    
+    
+  
+    const detailPage = await Homepages.findByPk(id)
+
+    detailPage.title = req.body.title;
+    detailPage.description = req.body.description;
+    detailPage.backgroundColor = req.body.backgroundColor
+    detailPage.color = req.body.color;
+
+    await detailPage.save();
+
+
+
+
+   
+    
+    if(!detailPage) {
+        console.log('finding err')
+        res.status(400).send('no homepage found')
+    }
+
+    res.status(200).send(detailPage)
+    
+  }
+  )  
+
 module.exports = router;
