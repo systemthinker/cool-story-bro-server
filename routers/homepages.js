@@ -53,8 +53,8 @@ router.get('/homepages', async(req, res)=>{
 ) 
 
 
-router.post('/myhomepage/', async(req, res, next)=>{
-    const id = req.body.id;
+router.get('/myhomepage/:id', async(req, res, next)=>{
+    const id = req.params.id;
     console.log('id is',id)
     
     if(!id){
@@ -93,7 +93,13 @@ router.patch('/myhomepage/', async(req, res, next)=>{
     
     
   
-    const detailPage = await Homepages.findByPk(id)
+    const detailPage = await Homepages.findByPk(id, {
+        include: [Story],
+        
+        order: [[Story,"createdAt", "DESC"]]
+        
+        
+     })
 
     detailPage.title = req.body.title;
     detailPage.description = req.body.description;
