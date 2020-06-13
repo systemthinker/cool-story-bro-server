@@ -84,14 +84,10 @@ router.get('/myhomepage/:id', async(req, res, next)=>{
 
 router.patch('/myhomepage/', async(req, res, next)=>{
     const id = req.body.id;
-  
-    
+      
     if(!id){
         res.status(400).send('please login first to edit your page')
     }
-    
-    
-  
     const detailPage = await Homepages.findByPk(id, {
         include: [Story],
         
@@ -123,19 +119,13 @@ router.patch('/myhomepage/', async(req, res, next)=>{
   )  
 
 
-  router.patch('/story/:id',async(req,res,next) =>{
-    
-    
-    id = req.params.id; 
 
-    
-    
+
+  router.patch('/story/:id',async(req,res,next) =>{
+    id = req.params.id; 
     try{
 
     let story = await Story.findByPk(id)
-    console.log('story is', story)
- 
-
     if(story){
         story.name = req.body.name;
         story.content = req.body.content;
@@ -151,5 +141,27 @@ router.patch('/myhomepage/', async(req, res, next)=>{
         next(e)
     }
   }) 
+
+  router.delete('/story/:id', async(req,res,next)=>{
+    id = req.params.id; 
+    try{  
+    if(!id){
+        res.status(400).send('please login first to delete your story')
+    }
+    let story = await Story.findByPk(id)
+
+    await story.destroy();
+    // await detailPage.save();
+    if(!story) {
+        console.log('finding err')
+        res.status(400).send('no homepage found')
+    }
+
+    res.status(200).send({succes: 'You succesfully deleted your story!'})
+    } catch(e){
+    next(e)
+    }
+
+})  
 
 module.exports = router;
