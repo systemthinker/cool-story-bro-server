@@ -84,8 +84,7 @@ router.get('/myhomepage/:id', async(req, res, next)=>{
 
 router.patch('/myhomepage/', async(req, res, next)=>{
     const id = req.body.id;
-    console.log('id patch is',id)
-    console.log('body is ', req.body)
+  
     
     if(!id){
         res.status(400).send('please login first to edit your page')
@@ -122,5 +121,35 @@ router.patch('/myhomepage/', async(req, res, next)=>{
     
   }
   )  
+
+
+  router.patch('/story/:id',async(req,res,next) =>{
+    
+    
+    id = req.params.id; 
+
+    
+    
+    try{
+
+    let story = await Story.findByPk(id)
+    console.log('story is', story)
+ 
+
+    if(story){
+        story.name = req.body.name;
+        story.content = req.body.content;
+        story.imageUrl = req.body.imageUrl;
+
+        await story.save();
+    }
+
+    
+    res.status(200).send(story)
+
+    } catch(e){
+        next(e)
+    }
+  }) 
 
 module.exports = router;
