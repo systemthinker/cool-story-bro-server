@@ -151,13 +151,13 @@ router.patch('/myhomepage/', async(req, res, next)=>{
     let story = await Story.findByPk(id)
 
     await story.destroy();
-    // await detailPage.save();
+  
     if(!story) {
         console.log('finding err')
         res.status(400).send('no homepage found')
     }
 
-    res.status(200).send({succes: 'You succesfully deleted your story!'})
+    res.status(200).send(story)
     } catch(e){
     next(e)
     }
