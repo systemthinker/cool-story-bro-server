@@ -164,4 +164,32 @@ router.patch('/myhomepage/', async(req, res, next)=>{
 
 })  
 
+router.post('/story/:id', async(req,res,next)=>{
+    id = req.params.id; 
+       
+    try{  
+    if(!id){
+        res.status(400).send('please login first to create your story')
+    }
+
+    if(!req.body.name){
+        res.status(400).send('please enter a name for your story')
+    }
+    const story = await Story.create({
+       name: req.body.name,
+       content: req.body.content,
+       imageUrl: req.body.imageUrl,
+       homepageId: id, 
+    })
+
+    
+    
+
+    res.status(200).send(story)
+    } catch(e){
+    next(e)
+    }
+
+})  
+
 module.exports = router;

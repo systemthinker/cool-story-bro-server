@@ -10,7 +10,7 @@ module.exports = {
 
           Unlike REST, GraphQL uses one endpoint. This means we make one request to the endpoint and we’ll get one response as JSON. This JSON response can contain as little or as much data as we want. Like REST, GraphQL can be operated over HTTP, though GraphQL is protocol agnostic.
           `,
-          imageUrl: "https://graphql.org/img/og_image.png",
+          imageUrl: "https://miro.medium.com/proxy/1*mumryCJDTedTv1nOxB5PJg.png",
           homepageId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
