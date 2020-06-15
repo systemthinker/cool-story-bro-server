@@ -10,7 +10,7 @@ const authMiddleware = require("../auth/middleware");
 
 router.get('/homepages/:id', async(req, res)=>{
     const id = req.params.id;
-    console.log('id is',id)
+    
     
     if(!id){
         res.status(400).send('no homepage found')
@@ -25,10 +25,7 @@ router.get('/homepages/:id', async(req, res)=>{
        
     })
 
-    console.log('detailspage', detailPage.stories.map(s =>s.get({plain:true})))
-    // const story = await Story.findAll().map(s=>s.get({plain:true}))
-    // console.log('story', story)
-    
+        
     if(!detailPage) {
         console.log('finding err')
         res.status(400).send('no homepage found')
@@ -40,10 +37,10 @@ router.get('/homepages/:id', async(req, res)=>{
 
 router.get('/homepages', async(req, res)=>{
     const pages = await Homepages.findAll()
-    console.log('pages', pages)
+    
     try{
     
-    console.log('pages', pages)
+    
     res.status(200).send(pages.map(p=>p))
     } catch(e){
         res.status(400).send(`error: ${e.message}`)
@@ -55,7 +52,7 @@ router.get('/homepages', async(req, res)=>{
 
 router.get('/myhomepage/:id', async(req, res, next)=>{
     const id = req.params.id;
-    console.log('id is',id)
+    
     
     if(!id){
         res.status(400).send('no homepage found')

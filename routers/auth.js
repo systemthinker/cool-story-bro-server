@@ -29,7 +29,7 @@ router.post("/login", async (req, res, next) => {
           }
     });
 
-    console.log('user is ', user);
+    
     
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
